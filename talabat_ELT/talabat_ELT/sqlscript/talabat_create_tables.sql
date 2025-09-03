@@ -1,11 +1,9 @@
--- ==========================================
--- SCHEMA: Talabat-like (Products + Drivers separate)
--- ==========================================
+
 
 DROP TABLE IF EXISTS reviews, payments, order_items, orders,
     products, restaurants, addresses, drivers, users CASCADE;
 
--- Users (generic info: login, contact)
+-- Users 
 CREATE TABLE users (
   user_id SERIAL PRIMARY KEY,
   user_type VARCHAR(20) NOT NULL, -- 'customer','restaurant','driver'
@@ -16,7 +14,7 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Addresses (linked to users)
+-- Addresses 
 CREATE TABLE addresses (
   address_id SERIAL PRIMARY KEY,
   user_id INT NOT NULL REFERENCES users(user_id),
@@ -38,7 +36,7 @@ CREATE TABLE restaurants (
   is_open BOOLEAN DEFAULT TRUE
 );
 
--- Products (menu items)
+-- Products 
 CREATE TABLE products (
   product_id SERIAL PRIMARY KEY,
   restaurant_id INT NOT NULL REFERENCES restaurants(restaurant_id),
