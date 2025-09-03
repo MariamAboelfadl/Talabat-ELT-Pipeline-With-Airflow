@@ -1,4 +1,4 @@
-import glob
+
 import os
 from airflow import DAG
 from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator
@@ -22,15 +22,13 @@ def load_sql(file_path: str) -> str:
 with DAG(
     dag_id="talabat_transformations",
     start_date=datetime(2023, 1, 1),
-    schedule_interval=None,   # change to '@daily' if needed
+    schedule_interval=None,   
     catchup=False,
     default_args=default_args,
     tags=["talabat", "transformations"],
 ) as dag:
 
-    # ----------------------
-    # Dimension tasks
-    # ----------------------
+    
     with TaskGroup("dimensions") as dim_group:
         dim_sql_files = sorted(glob.glob(os.path.join(SQL_DIR, "dim_*.sql")))
         for file_path in dim_sql_files:
@@ -47,9 +45,7 @@ with DAG(
                 gcp_conn_id="google_cloud_default",
             )
 
-    # ----------------------
-    # Fact tasks
-    # ----------------------
+   
     with TaskGroup("facts") as fact_group:
         fact_sql_files = sorted(glob.glob(os.path.join(SQL_DIR, "fact_*.sql")))
         for file_path in fact_sql_files:
@@ -66,5 +62,5 @@ with DAG(
                 gcp_conn_id="google_cloud_default",
             )
 
-    # enforce ordering
+
     dim_group >> fact_group
