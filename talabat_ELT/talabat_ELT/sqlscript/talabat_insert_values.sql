@@ -1,6 +1,4 @@
--- ==========================================
--- DATA GENERATION
--- ==========================================
+
 
 -- 1. Customers (1000)
 INSERT INTO users (user_type, name, email, phone, password_hash)
