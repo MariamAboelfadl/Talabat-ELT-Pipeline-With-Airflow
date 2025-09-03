@@ -21,5 +21,5 @@ with DAG(
         for dag_id in dags_to_trigger
     ]
     trigger_tasks[0] >> trigger_tasks[1] >> trigger_tasks[2]  # sequential
-# OR leave them as-is for parallel
+
 
