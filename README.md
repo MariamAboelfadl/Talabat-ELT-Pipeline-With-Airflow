@@ -1,16 +1,31 @@
-# Data Pipeline with Airflow, Postgres, GCS, and BigQuery
+# Talabat Data Pipeline
 
-## 📌 Overview
-This project demonstrates a **modern data pipeline** using:
-- **Postgres** → Source database with sample data.
-- **Google Cloud Storage (GCS)** → Staging layer.
-- **BigQuery** → Data warehouse (with Dimensions & Facts).
-- **Airflow** → Orchestrator for all pipeline tasks.
+##  About the Project
+This project simulates a **modern data engineering pipeline** for a food delivery platform (Talabat).  
+It shows how to move data **from Postgres → GCS → BigQuery**, then transform it into **Dimension** and **Fact** tables for analytics — all orchestrated by **Apache Airflow**.
 
-The pipeline:
-1. Creates tables in Postgres and inserts mock data.
-2. Extracts data from Postgres → uploads to GCS.
-3. Loads data from GCS → BigQuery (raw tables).
-4. Transforms data → inserts into **Dimensions** and **Facts** tables in BigQuery.
-5. A master DAG triggers all the above DAGs in sequence.
+---
+
+##  Tech Stack
+| Tool/Service | Purpose |
+|--------------|---------|
+| **Postgres** | Source database (operational data) |
+| **Airflow**  | Workflow orchestration |
+| **Google Cloud Storage (GCS)** | Staging layer for extracted data |
+| **BigQuery** | Data warehouse (Dimensions & Facts) |
+| **SQL** | Schema creation, mock data, transformations |
+
+---
+
+##  Project Structure
+
+dags/
+│── db_pipeline.py # Create Postgres tables & insert mock data
+│── postgres_to_bq.py # Extract Postgres → Load into BigQuery
+│── transformations_pipeline.py # Run BigQuery transformations (dims + facts)
+│── master_dag.py # Orchestrates all DAGs
+sqlscript/
+│── talabat_create_tables.sql
+│── talabat_insert_values.sql
+│── dim_customer.sql
 
