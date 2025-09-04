@@ -1,4 +1,4 @@
-
+import glob
 import os
 from airflow import DAG
 from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator
